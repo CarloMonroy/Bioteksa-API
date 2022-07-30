@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, abort
 from flask_api import status
 from models import db
 from models import users_has_cultivos, cultivos, cultivos_has_biodispositivos
@@ -21,8 +21,15 @@ db.init_app(app)
 
 
 #Single Endpoint
+
+@app.errorhandler(404)
+def resource_not_found(e):
+    return jsonify(error=str(e)), 404
+
+
 @app.route("/cultivos/", methods=['GET', 'POST'])
 def cultivos():
+    print(request.method)
     if request.method == 'GET':
         page = request.args.get('page',1,type=int)
         per_page = request.args.get('per_page', 1, type=int)
@@ -46,7 +53,7 @@ def cultivos():
                 "data" : "User does not have cultivos"
             }
         return jsonify(response)
-    return status.HTTP_405_METHOD_NOT_ALLOWED
+    return abort(405, description="Method not allowed")
 
 
 
@@ -54,4 +61,4 @@ def cultivos():
 
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0')
+    app.run(host='0.0.0.0', debug=True)
