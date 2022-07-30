@@ -16,4 +16,4 @@ ENV FLASK_APP=app.py \
     DB_PASSWORD=shinyWhal322
 
 
-CMD [ "python3", "app.py"]
+CMD [ "pytest", "python3", "server.py"]
