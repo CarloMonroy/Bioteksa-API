@@ -1,6 +1,9 @@
 from models import cultivos, cultivos_has_biodispositivos, bio_dispositivos,tipo_biodispositivos, sensores_has_bio_dispositivos, users_has_cultivos
 
 def fill_response(user_cultivos):
+    """
+    Takes orm object array and uses it to format the response
+    """
 
     cultivos_arr = []
     response_array = []
@@ -29,8 +32,10 @@ def fill_response(user_cultivos):
 
 def fill_devices(cultivo_id):
 
-    ## En bio_dispositivos el updated_at es nullable y no tiene datos. Tienes que sacarlos de cultivos_has_biodispositivios
-
+    """
+    Formats response given cultivos_id
+    Returns an array of formated biodispositivos
+    """
 
     bio_dispositivos_array = []
     cul_biodispositivos = cultivos_has_biodispositivos.query.filter_by(cultivos_id=cultivo_id).all()

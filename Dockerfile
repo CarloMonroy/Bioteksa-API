@@ -12,8 +12,8 @@ COPY . .
 WORKDIR /app/src
 
 ENV FLASK_APP=app.py \
-    API_USERNAME=biobotTest \
-    APP_PASSWORD=shinyWhal322
+    DB_USERNAME=biobotTest \
+    DB_PASSWORD=shinyWhal322
 
 
 CMD [ "python3", "app.py"]

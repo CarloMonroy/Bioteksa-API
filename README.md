@@ -38,5 +38,5 @@ Docker is an open-source project for automating the deployment of applications a
 Navigate to your destination directory
 
 ```
-$ git clone
+$ git clone https://github.com/CarloMonroy/Bioteksa-API.git
 ```
