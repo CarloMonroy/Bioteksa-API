@@ -1,0 +1,228 @@
++------------------------------------+
+| Tables_in_biobot_first_release     |
++------------------------------------+
+| actividades_log                    |
+| actividades_log_has_files          |
+| actuadores                         |
+| actuadores_has_bio_dispositivos    |
+| actuadores_has_catalogo_atributos  |
+| actuadores_log                     |
+| actuator_schedules                 |
+| ambiente_cultivo                   |
+| aplicacion_productos_log           |
+| aplicacion_productos_log_has_files |
+| apscheduler_jobs                   |
+| bio_dispositivos                   |
+| biodispositivos_error_log          |
+| biodispositivos_has_location_log   |
+| biodispositivos_has_topics         |
+| biodispositivos_historial_alertas  |
+| bitacora_general_log               |
+| bitacoras_global_has_files         |
+| bitacoras_global_log               |
+| bitacoras_global_log_1             |
+| catalogo_atributo_has_user         |
+| catalogo_atributos                 |
+| categoria_toxicologica             |
+| ciclo_cultivo                      |
+| configuracion_alertas              |
+| configuracion_alertas_has_topic    |
+| configuracion_errores_bio          |
+| confirmation_token                 |
+| corporation                        |
+| corporation_has_users              |
+| cosechas_log                       |
+| cosechas_log_has_files             |
+| cultivos                           |
+| cultivos_has_biodispositivos       |
+| cultivos_has_files                 |
+| data_type                          |
+| dispositivos_sms                   |
+| enfermedades                       |
+| enfermedades_log                   |
+| enfermedades_log_has_files         |
+| factors                            |
+| files                              |
+| historial_alertas                  |
+| historial_modules_log              |
+| historial_sms_log                  |
+| idiomas                            |
+| ingredientes_activos               |
+| login_log                          |
+| marcas_productos                   |
+| mensajes                           |
+| migrations                         |
+| modules                            |
+| modules_log                        |
+| nivel_errores                      |
+| oauth_access_tokens                |
+| oauth_auth_codes                   |
+| oauth_clients                      |
+| oauth_personal_access_clients      |
+| oauth_refresh_tokens               |
+| password_resets                    |
+| predios                            |
+| predios_has_bio_dispositivos       |
+| predios_has_catalogo_atributos     |
+| predios_has_files                  |
+| predios_has_users                  |
+| producto_has_activos               |
+| productos                          |
+| productos_log_has_files            |
+| prospectos                         |
+| sensores                           |
+| sensores_has_bio_dispositivos      |
+| sensores_has_catalogo_atributos    |
+| sensores_log                       |
+| sensores_log_desc                  |
+| sensores_log_notificaciones        |
+| sintomas                           |
+| sintomas_log                       |
+| sintomas_log_has_files             |
+| sms_log                            |
+| tags_bitacora                      |
+| tipo_actuadores                    |
+| tipo_biodispositivos               |
+| tipo_dato                          |
+| tipo_files                         |
+| tipo_mensajes                      |
+| tipo_sensores                      |
+| tipo_usuarios                      |
+| tipos_actividad                    |
+| tipos_cultivo                      |
+| tipos_producto                     |
+| topics                             |
+| user_has_dispositivo_sms           |
+| users                              |
+| users_has_biodispositivos          |
+| users_has_cultivos                 |
+| variables_mensaje_has_mensaje      |
+| variables_mensajes                 |
+| zonas_horarias                     |
++------------------------------------+
+
+
+Users Table
++------------------+---------------------+------+-----+---------+----------------+
+| Field            | Type                | Null | Key | Default | Extra          |
++------------------+---------------------+------+-----+---------+----------------+
+| id               | bigint(20) unsigned | NO   | PRI | NULL    | auto_increment |
+| name             | varchar(255)        | NO   |     | NULL    |                |
+| email            | varchar(255)        | NO   | UNI | NULL    |                |
+| password         | varchar(255)        | NO   |     | NULL    |                |
+| remember_token   | varchar(100)        | YES  |     | NULL    |                |
+| created_at       | timestamp           | YES  |     | NULL    |                |
+| updated_at       | timestamp           | YES  |     | NULL    |                |
+| tipo_usuarios_id | int(10) unsigned    | YES  | MUL | NULL    |                |
+| is_admin         | tinyint(4)          | NO   |     | 0       |                |
+| idioma_id        | bigint(20) unsigned | YES  | MUL | 1       |                |
+| deleted_at       | timestamp(6)        | YES  |     | NULL    |                |
+| token_version    | int(11)             | NO   |     | NULL    |                |
+| users_id         | bigint(20) unsigned | YES  | MUL | NULL    |                |
++------------------+---------------------+------+-----+---------+----------------+
+
+users_has_cultivos
+
++-------------+---------------------+------+-----+----------------------+----------------+
+| Field       | Type                | Null | Key | Default              | Extra          |
++-------------+---------------------+------+-----+----------------------+----------------+
+| id          | bigint(20) unsigned | NO   | PRI | NULL                 | auto_increment |
+| cultivos_id | int(10) unsigned    | NO   | MUL | NULL                 |                |
+| users_id    | bigint(20) unsigned | NO   | MUL | NULL                 |                |
+| created_at  | timestamp(6)        | NO   |     | CURRENT_TIMESTAMP(6) |                |
+| updated_at  | timestamp(6)        | NO   |     | CURRENT_TIMESTAMP(6) |                |
+| deleted_at  | timestamp(6)        | YES  |     | NULL                 |                |
++-------------+---------------------+------+-----+----------------------+----------------+
+
+cultivos
+
++---------------------+---------------------+------+-----+----------------------+----------------+
+| Field               | Type                | Null | Key | Default              | Extra          |
++---------------------+---------------------+------+-----+----------------------+----------------+
+| id                  | int(10) unsigned    | NO   | PRI | NULL                 | auto_increment |
+| nombre              | varchar(100)        | YES  |     | NULL                 |                |
+| polyline            | longtext            | YES  |     | NULL                 |                |
+| fecha_inicio        | date                | NO   |     | NULL                 |                |
+| fecha_final         | date                | NO   |     | NULL                 |                |
+| clave_cultivo       | varchar(10)         | YES  | UNI | NULL                 |                |
+| predios_id          | bigint(20) unsigned | NO   | MUL | NULL                 |                |
+| tipos_cultivo_id    | int(10) unsigned    | NO   | MUL | NULL                 |                |
+| ambiente_cultivo_id | int(10) unsigned    | NO   | MUL | NULL                 |                |
+| ciclo_cultivo_id    | int(10) unsigned    | NO   | MUL | NULL                 |                |
+| created_at          | timestamp(6)        | NO   |     | CURRENT_TIMESTAMP(6) |                |
+| updated_at          | timestamp(6)        | NO   |     | CURRENT_TIMESTAMP(6) |                |
+| deleted_at          | timestamp(6)        | YES  |     | NULL                 |                |
+| creador_id          | bigint(20) unsigned | YES  | MUL | NULL                 |                |
+| zonas_horarias_id   | int(10) unsigned    | YES  | MUL | NULL                 |                |
+| hectareas           | double(15,8)        | NO   |     | 0.00000000           |                |
++---------------------+---------------------+------+-----+----------------------+----------------+
+
+cultivos_has_biodispositivos
+
++---------------------+---------------------+------+-----+----------------------+----------------+
+| Field               | Type                | Null | Key | Default              | Extra          |
++---------------------+---------------------+------+-----+----------------------+----------------+
+| id                  | bigint(20) unsigned | NO   | PRI | NULL                 | auto_increment |
+| cultivos_id         | int(10) unsigned    | NO   | MUL | NULL                 |                |
+| bio_dispositivos_id | bigint(20) unsigned | NO   | MUL | NULL                 |                |
+| created_at          | timestamp(6)        | NO   |     | CURRENT_TIMESTAMP(6) |                |
+| updated_at          | timestamp(6)        | NO   |     | CURRENT_TIMESTAMP(6) |                |
+| deleted_at          | timestamp(6)        | YES  |     | NULL                 |                |
++---------------------+---------------------+------+-----+----------------------+----------------+
+6 rows in set (7.24 sec)
+
+bio_dispotivios
+
+-------------------------+---------------------+------+-----+---------+----------------+
+| Field                   | Type                | Null | Key | Default | Extra          |
++-------------------------+---------------------+------+-----+---------+----------------+
+| id                      | bigint(20) unsigned | NO   | PRI | NULL    | auto_increment |
+| nombre                  | varchar(250)        | YES  |     | NULL    |                |
+| identificador           | varchar(20)         | NO   |     | NULL    |                |
+| tipo_biodispositivos_id | int(10) unsigned    | NO   | MUL | NULL    |                |
+| bio_dispositivos_id     | bigint(20) unsigned | YES  | MUL | NULL    |                |
+| dispositivos_sms_id     | bigint(20) unsigned | YES  | MUL | NULL    |                |
+| notas                   | text                | YES  |     | NULL    |                |
+| created_at              | timestamp           | YES  |     | NULL    |                |
+| updated_at              | timestamp           | YES  |     | NULL    |                |
+| deleted_at              | timestamp           | YES  |     | NULL    |                |
+| position                | longtext            | YES  |     | NULL    |                |
+| clave                   | varchar(10)         | YES  | UNI | NULL    |                |
+| propietario_id          | bigint(20) unsigned | YES  | MUL | NULL    |                |
+| activo                  | tinyint(4)          | NO   |     | 0       |                |
+| recarga_saldo           | date                | YES  |     | NULL    |                |
++-------------------------+---------------------+------+-----+---------+----------------+
+15 rows in set (0.08 sec)
+
+sensores
+
++------------------+---------------------+------+-----+---------+----------------+
+| Field            | Type                | Null | Key | Default | Extra          |
++------------------+---------------------+------+-----+---------+----------------+
+| id               | bigint(20) unsigned | NO   | PRI | NULL    | auto_increment |
+| sensor           | varchar(250)        | NO   |     | NULL    |                |
+| identificador    | varchar(20)         | NO   |     | NULL    |                |
+| tipo_sensores_id | int(10) unsigned    | NO   | MUL | NULL    |                |
+| notas            | text                | YES  |     | NULL    |                |
+| created_at       | timestamp           | YES  |     | NULL    |                |
+| updated_at       | timestamp           | YES  |     | NULL    |                |
+| deleted_at       | timestamp           | YES  |     | NULL    |                |
+| clave            | varchar(10)         | YES  | UNI | NULL    |                |
+| fecha_testing    | date                | YES  |     | NULL    |                |
+| tester_id        | bigint(20) unsigned | YES  | MUL | NULL    |                |
++------------------+---------------------+------+-----+---------+----------------+
+
+
+sensores_has_bio_dispositivos
+
++---------------------+---------------------+------+-----+---------+----------------+
+| Field               | Type                | Null | Key | Default | Extra          |
++---------------------+---------------------+------+-----+---------+----------------+
+| id                  | bigint(20) unsigned | NO   | PRI | NULL    | auto_increment |
+| sensores_id         | bigint(20) unsigned | NO   | MUL | NULL    |                |
+| bio_dispositivos_id | bigint(20) unsigned | NO   | MUL | NULL    |                |
+| created_at          | timestamp           | YES  |     | NULL    |                |
+| updated_at          | timestamp           | YES  |     | NULL    |                |
+| deleted_at          | timestamp           | YES  |     | NULL    |                |
++---------------------+---------------------+------+-----+---------+----------------+
+6 rows in set (0.28 sec)
