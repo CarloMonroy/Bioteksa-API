@@ -25,18 +25,141 @@ Docker is an open-source project for automating the deployment of applications a
 
 ```
 
+## Pytest
+
+```
+The pytest framework makes it easy to write small, readable tests, and can scale to support complex functional testing for applications and libraries.
+```
+
 ## Requirements
 
 ### Dockers
 
 ### Git
 
-# Instalation Instructions
+# Run test
 
-## Clone git
+If you have pytest installed you can do
+
+```
+$ pytest
+```
+
+# Installation Instructions
+
+### Clone git
 
 Navigate to your destination directory
 
 ```
 $ git clone https://github.com/CarloMonroy/Bioteksa-API.git
+$ cd Bioteksa-API
+```
+
+### Build docker container
+
+```
+$ docker build --tag bioteksa-docker
+```
+
+Now you can run the container
+
+```
+$ docker run --publish 8000:5000 bioteksa-docker
+```
+
+This command runs the container in port 8000/cultivos.
+This endpoint takes a get request with params [user_id, page, per_page]
+If page or per_page is not defined it will default to 1
+
+It returns a Json with a data object with all the information and a
+meta object with pagination information.
+
+Now you can make requests to this api.
+
+example
+
+```
+$ curl http://127.0.0.1:8000/cultivos?user_id=2
+```
+
+Response:
+
+```
+{
+  "data": [
+    {
+      "nombre": "Tomate",
+      "ciclo_cultivo_id": 2,
+      "ambiente_cultivo_id": 3,
+      "fecha_inicio": "Mon, 28 May 2018 00:00:00 GMT",
+      "fecha_final": "Sat, 30 Jun 2018 00:00:00 GMT",
+      "clave_cultivo": "yTq5k3WU",
+      "creador_id": 2,
+      "id": 90,
+      "predios_id": 131,
+      "tipos_cultivo_id": 3,
+      "devices": [
+        {
+          "nombre": "Botlog 30303433",
+          "clave": "Gbav578k",
+          "id": 119,
+          "tipo_biodispositivos_id": 4,
+          "pivot": {
+            "cultivos_id": 90,
+            "bio_dispositivos_id": 118
+          },
+          "last_log": [
+            {
+              "value_datetime": "Thu, 31 May 2018 16:11:34 GMT",
+              "pivot": {
+                "bio_dispositivos_id": 118,
+                "sensores_id": 369
+              }
+            }
+          ],
+          "device_type": {
+            "id": 4,
+            "nombre": "Botlog 30303433",
+            "modulos": 0
+          }
+        },
+        {
+          "nombre": "Botlog 30303436",
+          "clave": "P25Ftr5s",
+          "id": 120,
+          "tipo_biodispositivos_id": 4,
+          "pivot": {
+            "cultivos_id": 90,
+            "bio_dispositivos_id": 118
+          },
+          "last_log": [
+            {
+              "value_datetime": "Thu, 31 May 2018 16:11:35 GMT",
+              "pivot": {
+                "bio_dispositivos_id": 118,
+                "sensores_id": 375
+              }
+            }
+          ],
+          "device_type": {
+            "id": 4,
+            "nombre": "Botlog 30303436",
+            "modulos": 0
+          }
+        }
+      ]
+    }
+  ],
+  "meta": {
+    "page": 1,
+    "pages": 85,
+    "total_count": 85,
+    "next_page": 2,
+    "has_next": true,
+    "has_prev": false
+  }
+}
+
+
 ```
