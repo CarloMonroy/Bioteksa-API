@@ -1,5 +1,4 @@
 from flask import Flask, request, jsonify, abort
-from flask_api import status
 from models import db
 from models import users_has_cultivos, cultivos, cultivos_has_biodispositivos
 from format_helpers import fill_response
@@ -15,6 +14,7 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = 'SECRETSUPERKEY'
 app.config['JSON_SORT_KEYS'] = False
 app.config['SQLALCHEMY_DATABASE_URI'] = conn
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db.init_app(app)
 
 
@@ -27,9 +27,8 @@ def resource_not_found(e):
     return jsonify(error=str(e)), 404
 
 
-@app.route("/cultivos/", methods=['GET', 'POST'])
+@app.route("/cultivos", methods=['GET', 'POST'])
 def cultivos():
-    print(request.method)
     if request.method == 'GET':
         page = request.args.get('page',1,type=int)
         per_page = request.args.get('per_page', 1, type=int)
@@ -53,7 +52,8 @@ def cultivos():
                 "data" : "User does not have cultivos"
             }
         return jsonify(response)
-    return abort(405, description="Method not allowed")
+    else:
+        return "Method not allowed", 405
 
 
 
