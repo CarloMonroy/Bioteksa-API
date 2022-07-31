@@ -211,4 +211,4 @@ $ python server.py
 
 ```
 
-This time you can acces this api on port 5000
+This time you can access this api on port 5000
