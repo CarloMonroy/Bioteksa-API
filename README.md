@@ -81,6 +81,7 @@ example
 
 ```
 $ curl http://127.0.0.1:8000/cultivos?user_id=2
+$ curl http://127.0.0.1:8000/cultivos?user_id=2&per_page=5
 ```
 
 Response:
@@ -163,3 +164,51 @@ Response:
 
 
 ```
+
+# Instalation no-Docker
+
+If you want to run this without docker we will need to create a virtual environment
+
+inside Bioteksa-API directory
+
+```
+$ python3 -m venv venv
+```
+
+then we activate the environmante
+
+```
+$ source venv/bin/activate
+```
+
+On windows (not shure how u do it on windows)
+
+```
+$ virtualenv venv
+```
+
+We install the required packages from requirements.txt
+
+```
+$ pip install -r requirements.txt
+```
+
+now we need to export our global variables to be able to connect to the database
+
+```
+
+$ export DB_USERNAME=<username>
+$ export DB_PASSWORD=<password>
+
+```
+
+Now we just need to run server.py
+
+```
+
+$ cd src
+$ python server.py
+
+```
+
+This time you can acces this api on port 5000
