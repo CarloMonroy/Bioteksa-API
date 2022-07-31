@@ -6,7 +6,7 @@ import os
 
 DB_USERNAME = os.environ.get('DB_USERNAME')
 DB_PASSWORD= os.environ.get('DB_PASSWORD')
-
+# DB connection
 conn = f"mysql+pymysql://{DB_USERNAME}:{DB_PASSWORD}@biobottest.ccttyurgugvu.us-east-1.rds.amazonaws.com:3306/biobot_first_release"
 app = Flask(__name__)
 
@@ -27,7 +27,7 @@ def resource_not_found(e):
 @app.route("/cultivos", methods=['GET', 'POST'])
 def cultivos():
     if request.method == 'GET':
-
+        # Exception handling
         try:
             #Retrieve parameters
             user_id = int(request.args['user_id'])
