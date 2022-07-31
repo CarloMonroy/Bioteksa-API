@@ -1,6 +1,6 @@
-from flask import Flask, request, jsonify, abort
+from flask import Flask, request, jsonify
 from models import db
-from models import users_has_cultivos, cultivos, cultivos_has_biodispositivos
+from models import users_has_cultivos
 from format_helpers import fill_response
 import os
 
