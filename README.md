@@ -194,6 +194,7 @@ $ pip install -r requirements.txt
 ```
 
 now we need to export our global variables to be able to connect to the database
+(PS you can find this in the dockerfile)
 
 ```
 
