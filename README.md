@@ -59,7 +59,7 @@ $ cd Bioteksa-API
 ### Build docker container
 
 ```
-$ docker build --tag bioteksa-docker
+$ docker build --tag bioteksa-docker .
 ```
 
 Now you can run the container
