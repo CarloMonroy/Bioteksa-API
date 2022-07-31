@@ -17,22 +17,27 @@ app.config['SQLALCHEMY_DATABASE_URI'] = conn
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db.init_app(app)
 
-
-
-
-#Single Endpoint
+# 404 for not existent endpoints
 
 @app.errorhandler(404)
 def resource_not_found(e):
     return jsonify(error=str(e)), 404
 
-
+# our single endpoint
 @app.route("/cultivos", methods=['GET', 'POST'])
 def cultivos():
     if request.method == 'GET':
-        page = request.args.get('page',1,type=int)
-        per_page = request.args.get('per_page', 1, type=int)
-        user_id = int(request.args['user_id'])
+
+        try:
+            #Retrieve parameters
+            user_id = int(request.args['user_id'])
+            page = request.args.get('page',1,type=int)
+            per_page = request.args.get('per_page', 1, type=int)
+        except ValueError:
+            return jsonify({
+                "data": "Invalid arguments. Enter only numbers"
+            })
+        #We query by user_id
         user_cultivos = users_has_cultivos.query.filter_by(users_id=user_id).paginate(page=page, per_page=per_page)
 
         if user_cultivos:
